@@ -21,7 +21,7 @@ namespace TestTask.Steps
         [AfterScenario]
         public void AfterScenario()
         {
-
+            Driver.Close();
         }
 
        //[Given(@"Open phptravels site and login")]

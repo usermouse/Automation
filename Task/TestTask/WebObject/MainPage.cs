@@ -110,24 +110,6 @@ namespace TestTask.WebObject
             var invoicePage = new InvoicePage();
             var a = invoicePage.Table();
         }
-
-        private void SwitchToNewTab()
-        {
-            
-            int counter = 30;
-            int count = this.Driver.WindowHandles.Count;
-            while (counter-- > 0)
-            {
-            
-                Thread.Sleep(1000);
-            }
-
-            Assert.That(this.Driver.WindowHandles.Count, Is.GreaterThanOrEqualTo(2), "There should be at least two tabs opened");
-            var winHandles = this.Driver.WindowHandles;
-            
-            this.Driver.SwitchTo().Window(winHandles[winHandles.Count - 1]);
-            Thread.Sleep(3000);
-            
-        }
+       
     }
 }
