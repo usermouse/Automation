@@ -24,7 +24,10 @@ namespace SpecFlowTask.Common
             {
                 var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
                 wait.Until(
-                    (d) => { return d.FindElement(By.XPath(xPath)); }
+                    (d) =>
+                    {
+                        return d.FindElement(By.XPath(xPath));
+                    }
                     );
             }
             catch { }
