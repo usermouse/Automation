@@ -17,10 +17,13 @@ namespace SpecFlowTask.Common
         public IWebDriver driver =  WebDriver.Driver;
         public IWebElement FindElement(string xPath)
         {
+            new Wait(driver).WaitAjax();
+            new Wait(driver).WaitReadyState();
+
             try
             {
                 var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
-                var element = wait.Until(
+                wait.Until(
                     (d) => { return d.FindElement(By.XPath(xPath)); }
                     );
             }
@@ -36,14 +39,14 @@ namespace SpecFlowTask.Common
             int count = driver.WindowHandles.Count;
             while (counter-- > 0)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(100);
             }
 
             Assert.That(driver.WindowHandles.Count, Is.GreaterThanOrEqualTo(2), "There should be at least two tabs opened");
             var winHandles = driver.WindowHandles;
 
             driver.SwitchTo().Window(winHandles[winHandles.Count - 1]);
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
 
         }
     }

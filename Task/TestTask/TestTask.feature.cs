@@ -85,27 +85,45 @@ this.ScenarioInitialize(scenarioInfo);
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Hotel"});
             table1.AddRow(new string[] {
-                        "Hurghada Sunset Desert Safari"});
+                        "Swissotel Le Plaza Basel"});
 #line 6
  testRunner.Then("Try to find hotel", ((string)(null)), table1, "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Hotel"});
             table2.AddRow(new string[] {
-                        "Hurghada Sunset Desert Safari"});
-#line 18
- testRunner.When("Open invoice", ((string)(null)), table2, "When ");
+                        "Swissotel Le Plaza Basel"});
+#line 9
+ testRunner.When("Open write review popup dialog", ((string)(null)), table2, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                        "DepositNow",
-                        "TaxVat",
-                        "TotalAmount"});
+                        "clean",
+                        "staff"});
             table3.AddRow(new string[] {
+                        "10",
+                        "2"});
+#line 12
+ testRunner.When("Configure parameters on review popup", ((string)(null)), table3, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Message"});
+            table4.AddRow(new string[] {
+                        @"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."});
+#line 15
+ testRunner.When("the write review message and close dialog", ((string)(null)), table4, "When ");
+#line 18
+ testRunner.When("Open invoice from \'Hurghada Sunset Desert Safari\' hotel", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "DEPOSIT NOW",
+                        "TAX & VAT",
+                        "TOTAL AMOUNT"});
+            table5.AddRow(new string[] {
                         "USD $30.80",
-                        "UDS $28",
+                        "USD $28",
                         "USD $308"});
-#line 21
- testRunner.Then("verify deposit information", ((string)(null)), table3, "Then ");
+#line 19
+ testRunner.Then("verify deposit information", ((string)(null)), table5, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

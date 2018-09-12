@@ -1,7 +1,4 @@
-﻿
-
-using System.Threading;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using SpecFlowTask;
 using SpecFlowTask.Browser;
@@ -13,12 +10,10 @@ namespace TestTask.WebObject
     [Binding]
     public class MainPage : BasePage
     {
-        private IWebDriver Driver;
+        private readonly IWebDriver _driver;
         public MainPage()
         {
-            Driver = WebDriver.Driver;
-            WebDriver.WaitReadyState();
-            WebDriver.WaitAjax();
+            _driver = WebDriver.Driver;
         }
 
         public IWebElement MyAccaountButton => FindElement("//nav//li[@id='li_myaccount']/a");
@@ -28,33 +23,27 @@ namespace TestTask.WebObject
         public void OpenLoginPage()
         {
             this.MyAccaountButton.Click();
-            WebDriver.WaitReadyState();
-            WebDriver.WaitAjax();
             this.LoginButton.Click();
-            WebDriver.WaitReadyState();
-            WebDriver.WaitAjax();
         }
 
         public void TryToFindAndScroll(string hotelName)
         {
-            this.HotelName(hotelName).ScrollToElement(Driver);
+            this.HotelName(hotelName).ScrollToElement(_driver);
         }
 
         [Given(@"Open phptravels site and login")]
         public void GivenOpenPhptravelsSiteAndLogin()
         {
 
-            Driver.Navigate().GoToUrl(Settings.SiteUrl);
+            _driver.Navigate().GoToUrl(Settings.SiteUrl);
 
             new MainPage().OpenLoginPage();
-            new LoginPage(Driver).Login();
+            new LoginPage(_driver).Login();
         }
 
         [Then(@"Try to find hotel")]
         public void ThenTryToFindHotel(Table table)
         {
-            WebDriver.WaitReadyState();
-            WebDriver.WaitAjax();
             string hotelName = table.Rows[0]["Hotel"];
             var mainPage = new MainPage();
             mainPage.TryToFindAndScroll(hotelName);
@@ -69,8 +58,6 @@ namespace TestTask.WebObject
 
             var accountPage = new AccountPage();
             accountPage.WriteReviewButton(hotelName).Click();
-            WebDriver.WaitReadyState();
-            WebDriver.WaitAjax();
         }
 
         [When(@"Configure parameters on review popup")]
@@ -79,26 +66,25 @@ namespace TestTask.WebObject
             var cleanNummer = table.Rows[0]["clean"];
             var staffNummer = table.Rows[0]["staff"];
 
-            var page = new WriteReviewPopup(Driver);
+            var page = new WriteReviewPopup(_driver);
 
             
             page.CleanSelect.SelectOption(cleanNummer);
             page.StaffSelect.SelectOption(staffNummer);
 
         }
-
-        [When(@"the write review message")]
-        public void WhenTheWriteReviewMessage(Table table)
+        [When(@"the write review message and close dialog")]
+        public void WhenTheWriteReviewMessageAndCloseDialog(Table table)
         {
-            var page = new WriteReviewPopup(Driver);
-            page.ReviewTextArea.SendKeys(table.Rows[0]["Message"]);
+            var reviewMessage = table.Rows[0]["Message"];
+            var page = new WriteReviewPopup(_driver);
+            page.ReviewTextArea.SendKeys(reviewMessage);
+            page.CloseButton.Click();
         }
 
-        [When(@"Open invoice")]
-        public void WhenOpenInvoice(Table table)
+        [When(@"Open invoice from '(.*)' hotel")]
+        public void WhenOpenInvoiceFromHotel(string hotelName)
         {
-            var hotelName = table.Rows[0]["Hotel"];
-
             var accountPage = new AccountPage();
             accountPage.InvoiceButton(hotelName).Click();
         }
@@ -108,7 +94,12 @@ namespace TestTask.WebObject
         {
             SwitchToNewTab();
             var invoicePage = new InvoicePage();
-            var a = invoicePage.Table();
+            var resultData = invoicePage.Table();
+
+            foreach (var item in resultData)
+            {
+                Assert.IsTrue(table.Rows[0][item.Key] == item.Value);
+            }
         }
        
     }

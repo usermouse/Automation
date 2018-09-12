@@ -15,12 +15,14 @@ namespace TestTask.WebObject
         }
 
 
-        public IWebElement CleanSelect => FindElement($"//form[@id='reviews-form-7']//select[@name='reviews_clean']");
-        public IWebElement ComfortSelect => FindElement($"//form[@id='reviews-form-7']//select[@name='reviews_comfort']");
-        public IWebElement LocationSelect => FindElement($"//form[@id='reviews-form-7']//select[@name='reviews_location']");
-        public IWebElement FacilitiesSelect => FindElement($"//form[@id='reviews-form-7']//select[@name='reviews_facilities']");
-        public IWebElement StaffSelect => FindElement($"//form[@id='reviews-form-7']//select[@name='reviews_staff']");
-        public IWebElement ReviewTextArea => FindElement($"//div[@id='AddReview7']//button[@type='button' and contains(@class, 'addreview') ]");
+        public IWebElement CleanSelect => FindElement($"//div[@style='display: block;']//form[contains(@id,'reviews-form-7')]//select[@name='reviews_clean']");
+        public IWebElement ComfortSelect => FindElement($"//div[@style='display: block;']//form[contains(@id,'reviews-form')]//select[@name='reviews_comfort']");
+        public IWebElement LocationSelect => FindElement($"//div[@style='display: block;']//form[contains(@id,'reviews-form')]//select[@name='reviews_location']");
+        public IWebElement FacilitiesSelect => FindElement($"//div[@style='display: block;']//form[contains(@id,'reviews-form')]//select[@name='reviews_facilities']");
+        public IWebElement StaffSelect => FindElement($"//div[@style='display: block;']//form[contains(@id,'reviews-form')]//select[@name='reviews_staff']");
+        public IWebElement ReviewTextArea => FindElement($"//div[@style='display: block;']//textarea[@name='reviews_comments']");
+        public IWebElement CloseButton => FindElement($"//div[@style='display: block;']//button[@type='button' and contains(@class, 'close') ]");
+        public IWebElement SubmitButton => FindElement($"//div[@style='display: block;']//button[@type='button' and contains(@class, 'addreview') ]");
 
         //[When(@"Configure parameters on review popup")]
         //public void WhenConfigureParametersOnReviewPopup(Table table)

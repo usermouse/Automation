@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Diagnostics;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using SpecFlowTask;
 using SpecFlowTask.Browser;
@@ -14,6 +16,7 @@ namespace TestTask.Steps
         [BeforeScenario]
         public void BefereScenario()
         {
+            KillTestProcess();
             InitialSettings();
             OpenBrowser();
         }
@@ -24,24 +27,50 @@ namespace TestTask.Steps
             Driver.Close();
         }
 
-       //[Given(@"Open phptravels site and login")]
-       // public void GivenOpenPhptravelsSiteAndLogin()
-       // {
+        private void KillTestProcess()
+        {
+            KillProcesses("nunit-agent");
+            KillProcesses("nunit-agent-x86");
+            KillProcesses("nunit3-console");
 
-       //     Driver.Navigate().GoToUrl(Settings.SiteUrl);
+            KillProcesses("chrome");
+            KillProcesses("chromedriver");
+        }
 
-       //     new MainPage(Driver).OpenLoginPage();
-       //     new LoginPage(Driver).Login();
-       // }
+        private void KillProcesses(string processName)
+        {
+            var nunitProcesses = Process.GetProcessesByName(processName);
+            foreach (var process in nunitProcesses)
+            {
+                try
+                {
+                    process.Kill();
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+        }
 
-       // [Then(@"Try to find hotel")]
-       // public void ThenTryToFindHotel(Table table)
-       // {
-       //     string hotelName = table.Rows[0]["Hotel"];
-       //     var mainPage = new MainPage(Driver);
-       //     mainPage.TryToFindAndScroll(hotelName);
+        //[Given(@"Open phptravels site and login")]
+        // public void GivenOpenPhptravelsSiteAndLogin()
+        // {
 
-       //     Assert.IsTrue(mainPage.HotelName(hotelName).Displayed, $"Hotel '{hotelName}' does not present on page");
-       // }
+        //     Driver.Navigate().GoToUrl(Settings.SiteUrl);
+
+        //     new MainPage(Driver).OpenLoginPage();
+        //     new LoginPage(Driver).Login();
+        // }
+
+        // [Then(@"Try to find hotel")]
+        // public void ThenTryToFindHotel(Table table)
+        // {
+        //     string hotelName = table.Rows[0]["Hotel"];
+        //     var mainPage = new MainPage(Driver);
+        //     mainPage.TryToFindAndScroll(hotelName);
+
+        //     Assert.IsTrue(mainPage.HotelName(hotelName).Displayed, $"Hotel '{hotelName}' does not present on page");
+        // }
     }
 }

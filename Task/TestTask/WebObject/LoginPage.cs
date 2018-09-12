@@ -18,7 +18,10 @@ namespace TestTask.WebObject
         private IWebDriver Driver;
         public LoginPage(IWebDriver driver)
         {
-            Driver = base.driver;
+            Driver = driver;
+
+            new Wait(Driver).WaitAjax();
+            new Wait(Driver).WaitReadyState();
         }
 
         public void Login()
@@ -26,8 +29,6 @@ namespace TestTask.WebObject
             LoginInput.SendKeys(Settings.Login);
             PasswordInput.SendKeys(Settings.Passwd);
             LoginButton.Click();
-            WebDriver.WaitReadyState();
-            WebDriver.WaitAjax();
         }
 
     }

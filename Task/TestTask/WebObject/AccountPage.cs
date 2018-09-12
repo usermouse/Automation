@@ -17,7 +17,7 @@ namespace TestTask.WebObject
 
         public IWebElement HotelName(string name) => FindElement($"//div[@id='bookings']//a/b[text()='{name}']");
         public IWebElement InvoiceButton(string name) => FindElement($"//div[@id='bookings']//div[@class='row' and .//b[text()='{name}']]//a[contains(@href,'invoice?') and @target='_blank']");
-        public IWebElement WriteReviewButton(string name) => FindElement($"//div[@id='bookings']//div[@class='row' and .//b[text()='{name}']]//span[@href='#AddReview7']");
+        public IWebElement WriteReviewButton(string name) => FindElement($"//div[@id='bookings']//div[@class='row' and .//b[text()='{name}']]//span[contains(@class,'write_review')]");
 
         //[When(@"Open write review popup dialog")]
         //public void WhenOpenWriteReviewPopupDialog(Table table)

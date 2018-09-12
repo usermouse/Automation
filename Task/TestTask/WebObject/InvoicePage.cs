@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using SpecFlowTask.Browser;
 using SpecFlowTask.Common;
 
 namespace TestTask.WebObject
@@ -14,23 +15,29 @@ namespace TestTask.WebObject
         private IWebDriver _driver;
         public InvoicePage()
         {
-            _driver = base.driver;
+            _driver = driver;
         }
 
         public IWebElement HotelName(string name) => FindElement($"//table[contains(@class,'table-bordered')]//td[contains(text(),'{name}')]");
         public IWebElement TableElement => FindElement($"//table[contains(@class,'table-bordered')]");
 
-        public IList<IWebElement> Table()
+        public Dictionary<string, string> Table()
         {
-            IList<IWebElement> tableRows = TableElement.FindElements(By.TagName("tr")).ToList();
-            IList<IWebElement> rowTd = new List<IWebElement>();
+            var tableTitleRows = TableElement.FindElements(By.XPath("//table[contains(@class,'table-bordered')]//thead//td")).Select(x=>x.Text).ToList();
+            var tableDataRows = TableElement.FindElements(By.XPath("//table[contains(@class,'table-bordered')]//tbody//td")).Select(x=>x.Text).ToList();
+            
 
-            foreach (var row in tableRows)
+            var tableData = new Dictionary<string, string>();
+
+            for (int i = 0; i < tableTitleRows.Count(); i++)
             {
-                rowTd = row.FindElements(By.TagName("td"));
+                if(!tableData.ContainsKey(tableTitleRows[i]))
+                    tableData.Add(tableTitleRows[i], tableDataRows[i]);
             }
 
-            return rowTd;
+
+
+            return tableData;
         }
     }
 }

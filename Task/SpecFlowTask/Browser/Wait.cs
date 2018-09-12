@@ -12,19 +12,19 @@ namespace SpecFlowTask.Browser
 {
     public class Wait
     {
-        private static IWebDriver _driver;
+        private  IWebDriver _driver;
         public Wait(IWebDriver driver)
         {
             _driver = driver;
         }
-        public static object ExecuteJavaScript(string javaScript, params object[] args)
+        public  object ExecuteJavaScript(string javaScript, params object[] args)
         {
             var javaScriptExecutor = (IJavaScriptExecutor)_driver;
 
             return javaScriptExecutor.ExecuteScript(javaScript);
         }
 
-        public static void WaitReadyState()
+        public  void WaitReadyState()
         {
             Contract.Assume(_driver != null);
             int time = 0;
@@ -42,27 +42,24 @@ namespace SpecFlowTask.Browser
             }
         }
 
-        public static void WaitAjax()
+        public  void WaitAjax()
         {
 
             Contract.Assume(_driver != null);
             int time = 0;
-            var ready = (bool)ExecuteJavaScript("return (typeof($) === 'undefined') ? true : !$.active;", _driver);
-
-            while (!ready)
+            while (time < 80)
             {
-                ready = (bool)ExecuteJavaScript("return (typeof($) === 'undefined') ? true : !$.active;", _driver);
+                bool ajaxFinished = (bool)((IJavaScriptExecutor)_driver).
+                    ExecuteScript("return !!jQuery && jQuery.active == 0");
 
-                if (time > 15000)
-                    break;
-
-                Thread.Sleep(100);
-                time += 100;
-
+                if (ajaxFinished)
+                    return;
+                time++;
+                Thread.Sleep(500);
             }
         }
 
-        public static void UntilAnimationIsDone(string elementId, int timeoutInSeconds = 30)
+        public  void UntilAnimationIsDone(string elementId, int timeoutInSeconds = 30)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(60));
             Until(_driver =>
@@ -76,7 +73,7 @@ namespace SpecFlowTask.Browser
                 return !bool.Parse(isAnimated);
             }, timeoutInSeconds);
         }
-        public static void Until(Func<IWebDriver, bool> waitCondition, int timeoutInSeconds = 30)
+        public  void Until(Func<IWebDriver, bool> waitCondition, int timeoutInSeconds = 30)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutInSeconds));
             wait.Until(waitCondition);

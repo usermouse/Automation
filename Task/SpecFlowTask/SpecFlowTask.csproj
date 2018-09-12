@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Browser\Browsers.cs" />
+    <Compile Include="Browser\Wait.cs" />
     <Compile Include="Browser\WebDriver.cs" />
     <Compile Include="Common\BasePage.cs" />
     <Compile Include="Common\WebElementExtensions.cs" />
