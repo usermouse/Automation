@@ -14,7 +14,7 @@ using TechTalk.SpecFlow;
 
 namespace SpecFlowTask.Browser
 {
-    public class Browsers 
+    public abstract class Browsers 
     {
         public static IWebDriver Driver { set; get; }
 
