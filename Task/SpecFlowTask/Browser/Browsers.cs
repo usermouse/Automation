@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -7,14 +8,16 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using SpecFlowTask.Common;
 using TechTalk.SpecFlow;
 
 
 namespace SpecFlowTask.Browser
 {
-    public class Browsers : WebDriver
+    public class Browsers 
     {
-        
+        public static IWebDriver Driver { set; get; }
+
         public void OpenBrowser()
         {
             string browserType = Settings.Browser;
@@ -22,6 +25,11 @@ namespace SpecFlowTask.Browser
                 InitialBrowser();
             else
                 InitialBrowser(browserType);
+        }
+
+        public void InitialSettings()
+        {
+            new Settings().SettingManager();
         }
 
         private void InitialBrowser(string browserType = "chrome")
@@ -77,6 +85,28 @@ namespace SpecFlowTask.Browser
 
             IWebDriver driver = new FirefoxDriver(service);
             return driver;
+        }
+
+        public void KillTestProcess()
+        {
+            KillProcesses("chrome.exe");
+            KillProcesses("chromedriver.exe");
+        }
+
+        public void KillProcesses(string processName)
+        {
+            var nunitProcesses = Process.GetProcessesByName(processName);
+            foreach (var process in nunitProcesses)
+            {
+                try
+                {
+                    process.Kill();
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
         }
     }
 

@@ -71,9 +71,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Steps\WriteReviewSteps.cs" />
-    <Compile Include="Steps\AccountSteps.cs" />
-    <Compile Include="Steps\MainSteps.cs" />
+    <Compile Include="Steps\CommonSteps.cs" />
+    <Compile Include="Steps\Steps.cs" />
     <Compile Include="TestTask.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

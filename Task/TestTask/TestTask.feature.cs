@@ -85,14 +85,14 @@ this.ScenarioInitialize(scenarioInfo);
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Hotel"});
             table1.AddRow(new string[] {
-                        "Swissotel Le Plaza Basel"});
+                        "Hurghada Sunset Desert Safari"});
 #line 6
  testRunner.Then("Try to find hotel", ((string)(null)), table1, "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Hotel"});
             table2.AddRow(new string[] {
-                        "Swissotel Le Plaza Basel"});
+                        "Hurghada Sunset Desert Safari"});
 #line 9
  testRunner.When("Open write review popup dialog", ((string)(null)), table2, "When ");
 #line hidden

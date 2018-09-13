@@ -127,5 +127,19 @@ namespace SpecFlowTask.Common
             }
         }
 
+        public static bool IsNotDisplayed(this IWebElement webElement)
+        {
+            int count = 0;
+            while (count <= 10)
+            {
+                if (!webElement.Displayed)
+                    return true;
+
+                count++;
+                Thread.Sleep(100);
+            }
+
+            return false;
+        }
     }
 }

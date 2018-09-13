@@ -12,12 +12,6 @@ namespace TestTask.WebObject
 {
     public class InvoicePage : BasePage
     {
-        private IWebDriver _driver;
-        public InvoicePage()
-        {
-            _driver = driver;
-        }
-
         public IWebElement HotelName(string name) => FindElement($"//table[contains(@class,'table-bordered')]//td[contains(text(),'{name}')]");
         public IWebElement TableElement => FindElement($"//table[contains(@class,'table-bordered')]");
 
@@ -34,8 +28,6 @@ namespace TestTask.WebObject
                 if(!tableData.ContainsKey(tableTitleRows[i]))
                     tableData.Add(tableTitleRows[i], tableDataRows[i]);
             }
-
-
 
             return tableData;
         }

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -12,19 +8,26 @@ namespace SpecFlowTask.Browser
 {
     public class Wait
     {
-        private  IWebDriver _driver;
+        private readonly IWebDriver _driver;
         public Wait(IWebDriver driver)
         {
             _driver = driver;
         }
-        public  object ExecuteJavaScript(string javaScript, params object[] args)
+        public object ExecuteJavaScript(string javaScript, params object[] args)
         {
             var javaScriptExecutor = (IJavaScriptExecutor)_driver;
 
             return javaScriptExecutor.ExecuteScript(javaScript);
         }
 
-        public  void WaitReadyState()
+        public void WaitLoad()
+        {
+            UntilAnimationIsDone();
+            WaitAjax();
+            WaitReadyState();
+        }
+
+        public void WaitReadyState()
         {
             Contract.Assume(_driver != null);
             int time = 0;
@@ -42,7 +45,7 @@ namespace SpecFlowTask.Browser
             }
         }
 
-        public  void WaitAjax()
+        public void WaitAjax()
         {
 
             Contract.Assume(_driver != null);
@@ -59,21 +62,22 @@ namespace SpecFlowTask.Browser
             }
         }
 
-        public  void UntilAnimationIsDone(string elementId, int timeoutInSeconds = 30)
+        public void UntilAnimationIsDone(int timeoutInSeconds = 30)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(60));
             Until(_driver =>
             {
                 var javaScriptExecutor = (IJavaScriptExecutor)_driver;
                 var isAnimated = javaScriptExecutor
-                    .ExecuteScript(string.Format("return $('#{0}').is(':animated')", elementId))
-                    .ToString().ToLower();
+                    .ExecuteScript("return $(':animated').length")
+                    .ToString().ToLower().Equals("0");
 
                 // return true when finished animating
-                return !bool.Parse(isAnimated);
+                return isAnimated;
             }, timeoutInSeconds);
         }
-        public  void Until(Func<IWebDriver, bool> waitCondition, int timeoutInSeconds = 30)
+
+        public void Until(Func<IWebDriver, bool> waitCondition, int timeoutInSeconds = 30)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutInSeconds));
             wait.Until(waitCondition);

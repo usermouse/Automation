@@ -12,25 +12,33 @@ using SpecFlowTask.Browser;
 
 namespace SpecFlowTask.Common
 {
-    public class BasePage
+    public class BasePage : Browsers
     {
-        public IWebDriver driver =  WebDriver.Driver;
+        public IWebDriver driver;
+
+        public BasePage()
+        {
+            driver = Driver;
+        }
+
         public IWebElement FindElement(string xPath)
         {
-            new Wait(driver).WaitAjax();
-            new Wait(driver).WaitReadyState();
+            new Wait(driver).WaitLoad();
 
             try
             {
-                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
+                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(100));
                 wait.Until(
                     (d) =>
                     {
                         return d.FindElement(By.XPath(xPath));
                     }
-                    );
+                );
             }
-            catch { }
+            catch (Exception e)
+            {
+                return null;
+            }
 
             return driver.FindElement(By.XPath(xPath));
         }

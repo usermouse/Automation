@@ -4,11 +4,11 @@
 Scenario: Open 'phptravels' and verify invoice data
 	Given Open phptravels site and login
 	Then Try to find hotel
-	| Hotel                    |
-	| Swissotel Le Plaza Basel |
+	| Hotel                         |
+	| Hurghada Sunset Desert Safari |
 	When Open write review popup dialog
-	| Hotel                    |
-	| Swissotel Le Plaza Basel |
+	| Hotel                         |
+	| Hurghada Sunset Desert Safari |
 	When Configure parameters on review popup 
 	| clean | staff |
 	| 10    | 2     |
