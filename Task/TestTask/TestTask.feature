@@ -1,6 +1,6 @@
 ﻿Feature: TestTask
 
-@test
+@test1
 Scenario: Open 'phptravels' and verify invoice data
 	Given Open phptravels site and login
 	Then Try to find hotel
@@ -19,4 +19,3 @@ Scenario: Open 'phptravels' and verify invoice data
 	Then verify deposit information
 	| DEPOSIT NOW | TAX & VAT | TOTAL AMOUNT |
 	| USD $30.80  | USD $28   | USD $308     |
-	

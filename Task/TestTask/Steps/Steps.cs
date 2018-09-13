@@ -81,7 +81,7 @@ namespace TestTask.Steps
 
             foreach (var item in resultData)
             {
-                Assert.IsTrue(table.Rows[0][item.Key] == item.Value);
+                Assert.IsTrue(table.Rows[0][item.Key] == item.Value, $"Deposit information are wrong - {item.Key}:{item.Value} and should be {item.Key}:{table.Rows[0][item.Key]}");
             }
         }
     }

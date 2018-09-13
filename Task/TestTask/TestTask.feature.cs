@@ -71,11 +71,11 @@ namespace TestTask
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Open \'phptravels\' and verify invoice data")]
-        [NUnit.Framework.CategoryAttribute("test")]
+        [NUnit.Framework.CategoryAttribute("test1")]
         public virtual void OpenPhptravelsAndVerifyInvoiceData()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open \'phptravels\' and verify invoice data", null, new string[] {
-                        "test"});
+                        "test1"});
 #line 4
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();

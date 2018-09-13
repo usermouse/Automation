@@ -4,19 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using OpenQA.Selenium.Support.UI;
 
 namespace SpecFlowTask.Common
 {
     public static class WebElementExtensions
     {
-        public static IWebElement MouseHover(this IWebElement webElement , IWebDriver webDriver)
-        {
-            Actions builder = new Actions(webDriver);
-            builder.MoveToElement(webElement);
-            builder.Build().Perform();
-            return webElement;
-        }
-
         public static IWebElement ScrollToElement(this IWebElement webElement, IWebDriver webDriver, int topMargin = 100, int bottomMargin = 100)
         {
             const string GetWindowInfoScript = "return { 'scroll' : window.pageYOffset, 'height' : window.innerHeight };";
@@ -89,26 +82,6 @@ namespace SpecFlowTask.Common
             return webElement;
         }
 
-        public static void WaitForElementPresent(this IWebElement element)
-        {
-            int timeout = 0;
-
-            while (timeout < 10000)
-            {
-                try
-                {
-                    if (element.IsDisplayed())
-                    {
-                        break;
-                    }
-                }
-                catch { }
-
-                Thread.Sleep(100);
-                timeout += 200;
-            }
-        }
-
         public static bool IsDisplayed(this IWebElement webElement)
         {
             if (!webElement.Displayed)
@@ -136,7 +109,7 @@ namespace SpecFlowTask.Common
                     return true;
 
                 count++;
-                Thread.Sleep(100);
+                Thread.Sleep(500);
             }
 
             return false;
