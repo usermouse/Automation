@@ -14,6 +14,7 @@ namespace SpecFlowTask.Common
         public BasePage()
         {
             driver = Driver;
+            driver.Manage().Timeouts().ImplicitWait=TimeSpan.FromSeconds(69);
         }
 
         public IWebElement FindElement(string xPath)

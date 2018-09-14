@@ -14,17 +14,15 @@ using TechTalk.SpecFlow;
 
 namespace SpecFlowTask.Browser
 {
-    public abstract class Browsers 
+    public abstract class Browsers
     {
         public static IWebDriver Driver { set; get; }
 
         public void OpenBrowser()
         {
             string browserType = Settings.Browser;
-            if (string.IsNullOrEmpty(browserType))
-                InitialBrowser();
-            else
-                InitialBrowser(browserType);
+
+            InitialBrowser(browserType);
         }
 
         public void InitialSettings()
@@ -38,10 +36,6 @@ namespace SpecFlowTask.Browser
             {
                 case "chrome":
                     Driver = LaunchChromeBrowser(browserType);
-                    break;
-
-                case "ff":
-                    Driver = this.LaunchFfBrowser(browserType);
                     break;
             }
 
@@ -67,27 +61,6 @@ namespace SpecFlowTask.Browser
 
             return chromeOptions;
         }
-
-        private IWebDriver LaunchFfBrowser(string userAgentType)
-        {
-            var options = new FirefoxOptions
-            {
-                AcceptInsecureCertificates = true,
-                PageLoadStrategy = PageLoadStrategy.Eager,
-                UnhandledPromptBehavior = UnhandledPromptBehavior.Accept
-            };
-
-
-            var service = FirefoxDriverService.CreateDefaultService(
-                $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\\Drivers\\Geco",
-                "wires.exe");
-            service.FirefoxBinaryPath = @"C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-
-            IWebDriver driver = new FirefoxDriver(service);
-            return driver;
-        }
-
-        
     }
 
 }
