@@ -1,10 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading;
-using NUnit.Framework;
-using OpenQA.Selenium;
+﻿using NUnit.Framework;
 using SpecFlowTask;
-using SpecFlowTask.Browser;
 using SpecFlowTask.Common;
 using TechTalk.SpecFlow;
 using TestTask.WebObject;
@@ -50,7 +45,7 @@ namespace TestTask.Steps
 
             var page = new WriteReviewPopup();
 
-
+            page.ReviewTextArea.IsDisplayed();
             page.CleanSelect.SelectOption(cleanNummer);
             page.StaffSelect.SelectOption(staffNummer);
 
@@ -78,6 +73,9 @@ namespace TestTask.Steps
             SwitchToNewTab();
             var invoicePage = new InvoicePage();
             var resultData = invoicePage.Table();
+
+            if(resultData.Count ==0)
+                Assert.IsFalse(true, "Deposit information does not exist");
 
             foreach (var item in resultData)
             {

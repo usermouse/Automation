@@ -1,9 +1,5 @@
-﻿
-
-using OpenQA.Selenium;
-using SpecFlowTask.Browser;
+﻿using OpenQA.Selenium;
 using SpecFlowTask.Common;
-using TechTalk.SpecFlow;
 
 namespace TestTask.WebObject
 {

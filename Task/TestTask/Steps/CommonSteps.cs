@@ -1,4 +1,5 @@
-﻿using SpecFlowTask.Browser;
+﻿using System.Diagnostics;
+using SpecFlowTask.Browser;
 using TechTalk.SpecFlow;
 
 namespace TestTask.Steps
@@ -20,6 +21,28 @@ namespace TestTask.Steps
             Driver.Close();
             Driver.Dispose();
             KillTestProcess();
+        }
+
+        public void KillTestProcess()
+        {
+            KillProcesses("chrome.exe");
+            KillProcesses("chromedriver.exe");
+        }
+
+        public void KillProcesses(string processName)
+        {
+            var nunitProcesses = Process.GetProcessesByName(processName);
+            foreach (var process in nunitProcesses)
+            {
+                try
+                {
+                    process.Kill();
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
         }
     }
 }

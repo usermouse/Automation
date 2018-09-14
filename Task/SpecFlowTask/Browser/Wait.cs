@@ -72,7 +72,6 @@ namespace SpecFlowTask.Browser
                     .ExecuteScript("return $(':animated').length")
                     .ToString().ToLower().Equals("0");
 
-                // return true when finished animating
                 return isAnimated;
             }, timeoutInSeconds);
         }

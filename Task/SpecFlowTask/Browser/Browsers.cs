@@ -87,27 +87,7 @@ namespace SpecFlowTask.Browser
             return driver;
         }
 
-        public void KillTestProcess()
-        {
-            KillProcesses("chrome.exe");
-            KillProcesses("chromedriver.exe");
-        }
-
-        public void KillProcesses(string processName)
-        {
-            var nunitProcesses = Process.GetProcessesByName(processName);
-            foreach (var process in nunitProcesses)
-            {
-                try
-                {
-                    process.Kill();
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-        }
+        
     }
 
 }

@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SpecFlowTask.Browser;
 
@@ -24,16 +19,11 @@ namespace SpecFlowTask.Common
         public IWebElement FindElement(string xPath)
         {
             new Wait(driver).WaitLoad();
-
+            
             try
             {
                 var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(100));
-                wait.Until(
-                    (d) =>
-                    {
-                        return d.FindElement(By.XPath(xPath));
-                    }
-                );
+                wait.Until(d => ExpectedConditions.ElementExists(By.XPath(xPath)));
             }
             catch (Exception e)
             {

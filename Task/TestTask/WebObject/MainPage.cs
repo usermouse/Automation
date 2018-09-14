@@ -1,7 +1,4 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
-using SpecFlowTask;
-using SpecFlowTask.Browser;
+﻿using OpenQA.Selenium;
 using SpecFlowTask.Common;
 using TechTalk.SpecFlow;
 
